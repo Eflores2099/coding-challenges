@@ -91,3 +91,20 @@
 //   return result;
 // }
 
+// Given a 32 bit signed integer, reverse digits of an integer.
+
+let reverse = function(x){
+let minus = 0;
+if(x < 0){
+minus = 1;
+x = -x;
+}
+x = x + '';
+x = x.split('');
+x = x.reverse();
+x = x.join('');
+if (x > 0x7FFFFFFF) {
+return 0;
+}
+return minus ? - parseInt(x): parseInt(x);
+}
