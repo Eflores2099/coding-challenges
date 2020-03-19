@@ -93,18 +93,30 @@
 
 // Given a 32 bit signed integer, reverse digits of an integer.
 
-let reverse = function(x){
-let minus = 0;
-if(x < 0){
-minus = 1;
-x = -x;
-}
-x = x + '';
-x = x.split('');
-x = x.reverse();
-x = x.join('');
-if (x > 0x7FFFFFFF) {
-return 0;
-}
-return minus ? - parseInt(x): parseInt(x);
-}
+// let reverse = function(x){
+// let minus = 0;
+// if(x < 0){
+// minus = 1;
+// x = -x;
+// }
+// x = x + '';
+// x = x.split('');
+// x = x.reverse();
+// x = x.join('');
+// if (x > 0x7FFFFFFF) {
+// return 0;
+// }
+// return minus ? - parseInt(x): parseInt(x);
+// }
+
+// Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+var isPalindrome = function(x) {
+  if( x < 0) 
+      return false
+  const reverse = `${x}`.split('').reverse().join('')
+  
+  return x == reverse
+  
+    
+};
