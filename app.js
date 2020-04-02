@@ -111,12 +111,59 @@
 
 // Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
 
-var isPalindrome = function(x) {
-  if( x < 0) 
-      return false
-  const reverse = `${x}`.split('').reverse().join('')
+// var isPalindrome = function(x) {
+//   if( x < 0) 
+//       return false
+//       // return the dtring representation of x
+//   const reverse = `${x}`.split('').reverse().join('')
+//   // compare the value regardless of types
   
-  return x == reverse
+//   return x == reverse
   
     
-};
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function addArray(a1, a2) {
+//   const sum = []
+//   for (let i=0; i < a1.length; a1++) {
+//    let sum = a1[i] + a2[i] 
+//   }
+//   return sum
+// }
+
+// console.log(addArray([1, 2, 3, 4], [4, 5, 6, 7])); // should say [5, 7, 9, 11]
+
+
+
+// Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+
+// Note:
+
+// Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+// example: Input: [2,2,1]
+//Output: 1
+
+//input: [4,1,2,1,2]
+//output: 4
+
+const singleNumber = function(nums) {
+  let a = 0
+  nums.forEach((i) => {
+      a^=i
+  })
+  
+  return a
+}
