@@ -186,18 +186,44 @@
 // 62 + 82 = 100
 // 12 + 02 + 02 = 1
 
-const isHappy = function(n, counter = 0) {
-  result = false
- if(counter < 8){
-   let array = n.toString().split('').map(n => n*n)
-   let sum = array.reduce((accumulator, currentNum) => accumulator + currentNum, 0)
-   if(sum === 1) {
-       return result = true
-   }else {
-       counter++
-       isHappy(sum, counter)
-   }
+// const isHappy = function(n, counter = 0) {
+//   result = false
+//  if(counter < 8){
+//    let array = n.toString().split('').map(n => n*n)
+//    let sum = array.reduce((accumulator, currentNum) => accumulator + currentNum, 0)
+//    if(sum === 1) {
+//        return result = true
+//    }else {
+//        counter++
+//        isHappy(sum, counter)
+//    }
      
- }  
-   return result
+//  }  
+//    return result
+// };
+
+// MAXIMUM SUBARRAY
+// given an integer array SVGAnimatedNumberList, find the contiguous subarray 
+// (containing at least one number) which has the largest sum and returns its sum.
+
+// Example:
+//  Input: [-2,1,-3,4,-1,2,1,-5,4],
+// Output: 6
+// Explanation: [4,-1,2,1] has the largest sum = 6.
+
+//Kadane's Algorithm
+
+someArr = [-2, -1, -3, 4, -1, 2, 1 ,-5, 4]
+
+function maxSubArray(nums) {
+    let solution = nums[0]
+    for(let i=1; i <nums.length; i++) {
+        nums[i] = Math.max(nums[i], nums[i] + nums[i-1])
+        solution = Math.max(solution, nums[i])
+    }
+     
+     return solution
+  
+   
+    
 };
