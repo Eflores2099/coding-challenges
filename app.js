@@ -213,17 +213,39 @@
 
 //Kadane's Algorithm
 
-someArr = [-2, -1, -3, 4, -1, 2, 1 ,-5, 4]
+// someArr = [-2, -1, -3, 4, -1, 2, 1 ,-5, 4]
 
-function maxSubArray(nums) {
-    let solution = nums[0]
-    for(let i=1; i <nums.length; i++) {
-        nums[i] = Math.max(nums[i], nums[i] + nums[i-1])
-        solution = Math.max(solution, nums[i])
-    }
+// function maxSubArray(nums) {
+//     let solution = nums[0]
+//     for(let i=1; i < nums.length; i++) {
+//         nums[i] = Math.max(nums[i], nums[i] + nums[i-1])
+//         solution = Math.max(solution, nums[i])
+//     }
      
-     return solution
+//      return solution
   
    
     
+// };
+
+
+//Move Zeroes
+//Given an array nums, write a function to move all 0's to the end of it while maintaning the relative order of the non-zero elements
+//example:
+
+//input: [0,1,1,3,12]
+//output:[1,3,12,0,0]
+
+// 1. You must do this in-place without making a copy of the array
+// 2. Minimize the total number of operations
+const moveZeroes = function(nums) {
+    
+for(let i = nums.length-1;i >=0; i--) {
+    if(nums[i]=== 0) {
+        nums.splice(i, 1)
+        nums.push(0)
+    }
+}
+return nums
+   
 };
