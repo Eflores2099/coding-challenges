@@ -262,15 +262,44 @@
 // Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
 //              Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
 
-const maxProfit = function(prices) {
-    let profit = 0
+// const maxProfit = function(prices) {
+//     let profit = 0
     
-    for(let i = 1; i < prices.length; i++) {
-        if(prices[i] > prices[i - 1]) {
-            profit += prices[i] - prices [i - 1]
-        }
+//     for(let i = 1; i < prices.length; i++) {
+//         if(prices[i] > prices[i - 1]) {
+//             profit += prices[i] - prices [i - 1]
+//         }
         
-    }  
+//     }  
     
-        return profit
-};
+//         return profit
+// };
+
+//Group Anagrams
+
+//given an array of strings, group anagrams together
+
+// Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+// Output:
+// [
+//   ["ate","eat","tea"],
+//   ["nat","tan"],
+//   ["bat"]
+// ]
+// All imputs will be in lowercase and the order of your output does not matter.
+
+const groupAnagrams = function(strs) {
+    let hash = {}
+    strs.forEach(str => {
+        let letters = str.split('').sort()
+
+        hash[letters] ? hash[letters].push(str) : hash[letters] = [str]
+    })
+
+    const keys = Object.keys(hash)
+    const values = keys.map(function(v) { return hash[v]
+    })
+
+    return values
+        
+}
