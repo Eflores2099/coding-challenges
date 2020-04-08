@@ -288,18 +288,62 @@
 // ]
 // All imputs will be in lowercase and the order of your output does not matter.
 
-const groupAnagrams = function(strs) {
-    let hash = {}
-    strs.forEach(str => {
-        let letters = str.split('').sort()
+// const groupAnagrams = function(strs) {
+//     let hash = {}
+//     strs.forEach(str => {
+//         let letters = str.split('').sort()
 
-        hash[letters] ? hash[letters].push(str) : hash[letters] = [str]
-    })
+//         hash[letters] ? hash[letters].push(str) : hash[letters] = [str]
+//     })
 
-    const keys = Object.keys(hash)
-    const values = keys.map(function(v) { return hash[v]
-    })
+//     const keys = Object.keys(hash)
+//     const values = keys.map(function(v) { return hash[v]
+//     })
 
-    return values
+//     return values
         
-}
+// }
+
+
+//Counting Elements
+//Given an integer array arr, count element x such that x + 1 is also in arr.
+
+//If there're duplicates in arr, count them seperately.
+
+//Example: 
+// Input: arr = [1,2,3]
+// Output: 2
+// Explanation: 1 and 2 are counted cause 2 and 3 are in arr.
+
+// one (element + 1) can satisfy the requirement for many elements (x)
+//object to store counts, loops
+//alg: -loop through array
+//      -if obj[current int] is undefined
+//           -declare it and assign it 0
+//      -increment obj[current int] by 1
+
+//      -loop through array
+//      -if obj[current int +1] is (x >= 1)
+//          -increment results += 1
+//      - return results
+
+const countElements = function(arr) {
+    let counts = {}
+    let result = 0
+    
+    arr.forEach(function(num) {
+        if(counts[num] === undefined) {
+            counts[num] = 0
+        }
+        
+        counts[num] += 1
+    })
+    
+    arr.forEach(function(num) {
+        if(counts[num + 1] >= 1) {
+           result += 1 
+        }
+    })
+    
+    return result
+};
