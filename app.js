@@ -316,7 +316,7 @@
 // Explanation: 1 and 2 are counted cause 2 and 3 are in arr.
 
 // one (element + 1) can satisfy the requirement for many elements (x)
-//object to store counts, loops
+// data structure: object to store counts, loops
 //alg: -loop through array
 //      -if obj[current int] is undefined
 //           -declare it and assign it 0
@@ -327,23 +327,57 @@
 //          -increment results += 1
 //      - return results
 
-const countElements = function(arr) {
-    let counts = {}
-    let result = 0
+// const countElements = function(arr) {
+//     let counts = {}
+//     let result = 0
     
-    arr.forEach(function(num) {
-        if(counts[num] === undefined) {
-            counts[num] = 0
-        }
+//     arr.forEach(function(num) {
+//         if(counts[num] === undefined) {
+//             counts[num] = 0
+//         }
         
-        counts[num] += 1
-    })
+//         counts[num] += 1
+//     })
     
-    arr.forEach(function(num) {
-        if(counts[num + 1] >= 1) {
-           result += 1 
-        }
-    })
+//     arr.forEach(function(num) {
+//         if(counts[num + 1] >= 1) {
+//            result += 1 
+//         }
+//     })
     
-    return result
-};
+//     return result
+// };
+
+//Middle of the Linked List
+//Given a non-empty, singly linked list with head node head, return a middle node of linked list.
+
+//If there are two middle nodes, return the second middle node.
+
+//Example:
+// Input: [1,2,3,4,5]
+// Output: Node 3 from this list (Serialization: [3,4,5])
+// The returned node has value 3.  (The judge's serialization of this node is [3,4,5]).
+// Note that we returned a ListNode object ans, such that:
+// ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, and ans.next.next.next = NULL.
+
+//Data structure: linked list, while loop, and array for storing nodes
+//Alg: create empy array, declare nodeHead as variable pointing at head, while head !== null
+// push the current node to the array,reassign nodeHead to nodeHead.next
+
+//if array length is even
+// return array[array.lemgth /2]
+
+//else
+// -return Array.{math.floor(array.length /2)}
+
+
+const middleNode = function(head) {
+    let nodes =[]
+    let currentNode = head
+    while(currentNode !== null) {
+        nodes.push(currentNode)
+        currentNode = currentNode.next
+        
+    }
+    return nodes.length % 2 === 0 ? nodes[nodes.length /2] : nodes[Math.floor(nodes.length / 2)]
+}
