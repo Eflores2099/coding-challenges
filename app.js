@@ -371,13 +371,45 @@
 // -return Array.{math.floor(array.length /2)}
 
 
-const middleNode = function(head) {
-    let nodes =[]
-    let currentNode = head
-    while(currentNode !== null) {
-        nodes.push(currentNode)
-        currentNode = currentNode.next
+// const middleNode = function(head) {
+//     let nodes =[]
+//     let currentNode = head
+//     while(currentNode !== null) {
+//         nodes.push(currentNode)
+//         currentNode = currentNode.next
         
+//     }
+//     return nodes.length % 2 === 0 ? nodes[nodes.length /2] : nodes[Math.floor(nodes.length / 2)]
+// }
+
+
+//OR this method: 
+//initial state
+//f
+// 1 -> 2 -> 3 -> 4 -> 5
+// s
+
+// 1st loop
+// 		  f
+// 1 -> 2 -> 3 -> 4 -> 5
+//      s
+	 
+// 2nd loop
+// 		            f
+// 1 -> 2 -> 3 -> 4 -> 5
+//           s
+
+// when f reach end of the linked list, s will be at the middle.
+
+// f = fast pointer
+// s = slow pointer
+// */
+
+const middleNode = function(head) {
+    let fast = slow = head;
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
     }
-    return nodes.length % 2 === 0 ? nodes[nodes.length /2] : nodes[Math.floor(nodes.length / 2)]
-}
+    return slow;
+};
