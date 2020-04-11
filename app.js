@@ -418,17 +418,97 @@
 //Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character
 
 
-const backspaceCompare = function(S, T) {
-    const build = (S) => {
-        let st = []
-            for(let i=0, len = S.length; i < len; i++) {
-                if(S[i] == '#') {
-                    st.pop()
-                }else {
-                    st.push(S[i])
-                }
-            }
-        return st.join('')
-    }
-    return build(S) === build(T)
+// const backspaceCompare = function(S, T) {
+//     const build = (S) => {
+//         let st = []
+//             for(let i=0, len = S.length; i < len; i++) {
+//                 if(S[i] == '#') {
+//                     st.pop()
+//                 }else {
+//                     st.push(S[i])
+//                 }
+//             }
+//         return st.join('')
+//     }
+//     return build(S) === build(T)
+// };
+
+
+
+//Min stack
+
+//Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+// push(x) -- Push element x onto stack.
+// pop() -- Removes the element on top of the stack.
+// top() -- Get the top element.
+// getMin() -- Retrieve the minimum element in the stack
+
+/**
+ * initialize your data structure here.
+ stack: a property which stores an array methofs on the stack: push, pop, top, getMin
+ 
+ ds: stack/array
+ alg: - initialize a property named store on MinStack constructor
+ - push: use push method built in
+ -pop use pop method built in
+ -top: return the element at store[store.length -1]
+ -getMin:store minimum element in property om minstack
+ -each push we check to make sure the new element is larger than min
+      if smaller than min
+            -reassign property to point at new min
+  -reassign property to point at new min
+  -each pop, we must ensure the min element gets reassigned if the min was popped
+    - Math.min(...)
+    -for getMin, just return the property min from this
+ */
+var MinStack = function() {
+    this.min = undefined
+    this.store= []
 };
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MinStack.prototype.push = function(x) {
+this.store.push(x)
+    if(this.min === undefined || this.min > x) {
+        this.min = x
+    }
+    return
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+ this.store.pop()
+    this.min = Math.min(...this.store)
+    return
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+//return the top element from the stack store 
+    return this.store[this.store.length -1]
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+   // return the smallest integer from the stack 
+    return this.min
+};
+
+/** 
+ * Your MinStack object will be instantiated and called as such:
+ * var obj = new MinStack()
+ * obj.push(x)
+ * obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.getMin()
+ */
