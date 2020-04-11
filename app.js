@@ -405,11 +405,30 @@
 // s = slow pointer
 // */
 
-const middleNode = function(head) {
-    let fast = slow = head;
-    while (fast && fast.next) {
-        fast = fast.next.next;
-        slow = slow.next;
+// const middleNode = function(head) {
+//     let fast = slow = head;
+//     while (fast && fast.next) {
+//         fast = fast.next.next;
+//         slow = slow.next;
+//     }
+//     return slow;
+// };
+
+//Backspace String Compare
+//Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character
+
+
+const backspaceCompare = function(S, T) {
+    const build = (S) => {
+        let st = []
+            for(let i=0, len = S.length; i < len; i++) {
+                if(S[i] == '#') {
+                    st.pop()
+                }else {
+                    st.push(S[i])
+                }
+            }
+        return st.join('')
     }
-    return slow;
+    return build(S) === build(T)
 };
