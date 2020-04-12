@@ -462,53 +462,85 @@
     - Math.min(...)
     -for getMin, just return the property min from this
  */
-var MinStack = function() {
-    this.min = undefined
-    this.store= []
-};
+// var MinStack = function() {
+//     this.min = undefined
+//     this.store= []
+// };
 
-/** 
- * @param {number} x
- * @return {void}
- */
-MinStack.prototype.push = function(x) {
-this.store.push(x)
-    if(this.min === undefined || this.min > x) {
-        this.min = x
+// /** 
+//  * @param {number} x
+//  * @return {void}
+//  */
+// MinStack.prototype.push = function(x) {
+// this.store.push(x)
+//     if(this.min === undefined || this.min > x) {
+//         this.min = x
+//     }
+//     return
+// };
+
+// /**
+//  * @return {void}
+//  */
+// MinStack.prototype.pop = function() {
+//  this.store.pop()
+//     this.min = Math.min(...this.store)
+//     return
+// };
+
+// /**
+//  * @return {number}
+//  */
+// MinStack.prototype.top = function() {
+// //return the top element from the stack store 
+//     return this.store[this.store.length -1]
+// };
+
+// /**
+//  * @return {number}
+//  */
+// MinStack.prototype.getMin = function() {
+//    // return the smallest integer from the stack 
+//     return this.min
+// };
+
+// /** 
+//  * Your MinStack object will be instantiated and called as such:
+//  * var obj = new MinStack()
+//  * obj.push(x)
+//  * obj.pop()
+//  * var param_3 = obj.top()
+//  * var param_4 = obj.getMin()
+//  */
+
+
+//Diameter of Binary Tree
+// Given a binary tree, you need to compute the length of the diameter of the tree. 
+// The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
+// This path may or may not pass through the root.
+
+// 1
+// / \
+// 2   3
+// / \     
+// 4   5
+
+// Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
+
+// Note: The length of path between two nodes is represented by the number of edges between them.
+
+const diameterOfBinaryTree = function(root) {
+    let max = 0
+    let recurse = (node) => {
+        if (!node) { return 0 }
+        let leftDistance = recurse(node.left)
+        let rightDistance = recurse(node.right)
+     max = Math.max(max, leftDistance + rightDistance)  
+        
+        return Math.max(leftDistance, rightDistance) + 1
     }
-    return
-};
+    
+    recurse(root)
+    return max
 
-/**
- * @return {void}
- */
-MinStack.prototype.pop = function() {
- this.store.pop()
-    this.min = Math.min(...this.store)
-    return
 };
-
-/**
- * @return {number}
- */
-MinStack.prototype.top = function() {
-//return the top element from the stack store 
-    return this.store[this.store.length -1]
-};
-
-/**
- * @return {number}
- */
-MinStack.prototype.getMin = function() {
-   // return the smallest integer from the stack 
-    return this.min
-};
-
-/** 
- * Your MinStack object will be instantiated and called as such:
- * var obj = new MinStack()
- * obj.push(x)
- * obj.pop()
- * var param_3 = obj.top()
- * var param_4 = obj.getMin()
- */
