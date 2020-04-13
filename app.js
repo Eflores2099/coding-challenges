@@ -529,18 +529,70 @@
 
 // Note: The length of path between two nodes is represented by the number of edges between them.
 
-const diameterOfBinaryTree = function(root) {
-    let max = 0
-    let recurse = (node) => {
-        if (!node) { return 0 }
-        let leftDistance = recurse(node.left)
-        let rightDistance = recurse(node.right)
-     max = Math.max(max, leftDistance + rightDistance)  
+// const diameterOfBinaryTree = function(root) {
+//     let max = 0
+//     let recurse = (node) => {
+//         if (!node) { return 0 }
+//         let leftDistance = recurse(node.left)
+//         let rightDistance = recurse(node.right)
+//      max = Math.max(max, leftDistance + rightDistance)  
         
-        return Math.max(leftDistance, rightDistance) + 1
+//         return Math.max(leftDistance, rightDistance) + 1
+//     }
+    
+//     recurse(root)
+//     return max
+
+// };
+
+//Last Stone weight
+// We have a collection of stones, each stone has a positive integer weight.
+
+// Each turn, we choose the two heaviest stones and smash them together.  Suppose the stones have weights x and y with x <= y.  The result of this smash is:
+
+// If x == y, both stones are totally destroyed;
+// If x != y, the stone of weight x is totally destroyed, and the stone of weight y has new weight y-x.
+// At the end, there is at most 1 stone left.  Return the weight of this stone (or 0 if there are no stones left.)
+
+// Input: [2,7,4,1,8,1]
+// Output: 1
+// Explanation: 
+// We combine 7 and 8 to get 1 so the array converts to [2,4,1,1,1] then,
+// we combine 2 and 4 to get 2 so the array converts to [2,1,1,1] then,
+// we combine 2 and 1 to get 1 so the array converts to [1,1,1] then,
+// we combine 1 and 1 to get 0 so the array converts to [1] then that's the value of last stone.
+
+// 1 <= stones.length <= 30
+// 1 <= stones[i] <= 1000
+
+const lastStoneWeight = function(stones) {
+    const sorter = function(a, b) {
+        if (a < b) {
+            return 1
+        }else if (a > b) {
+            return -1
+        }else {
+            return 0
+        }
+    }
+    if (stones.length === 0) {
+        return 0
     }
     
-    recurse(root)
-    return max
-
-};
+    let difference
+    
+    while (stones.length > 1) {
+        stones.sort (sorter)
+                     
+        difference = stones[0] - stones[1]
+        
+        if (difference === 0) {
+            stones.shift()
+            stones.shift()
+        }else {
+            stones.shift()
+            stones[0] = difference
+        }
+    }
+    return stones.length === 0 ? 0 : stones[0]
+}
