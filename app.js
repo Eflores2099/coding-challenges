@@ -565,34 +565,64 @@
 // 1 <= stones.length <= 30
 // 1 <= stones[i] <= 1000
 
-const lastStoneWeight = function(stones) {
-    const sorter = function(a, b) {
-        if (a < b) {
-            return 1
-        }else if (a > b) {
-            return -1
-        }else {
-            return 0
-        }
-    }
-    if (stones.length === 0) {
-        return 0
-    }
+// const lastStoneWeight = function(stones) {
+//     const sorter = function(a, b) {
+//         if (a < b) {
+//             return 1
+//         }else if (a > b) {
+//             return -1
+//         }else {
+//             return 0
+//         }
+//     }
+//     if (stones.length === 0) {
+//         return 0
+//     }
     
-    let difference
+//     let difference
     
-    while (stones.length > 1) {
-        stones.sort (sorter)
+//     while (stones.length > 1) {
+//         stones.sort (sorter)
                      
-        difference = stones[0] - stones[1]
+//         difference = stones[0] - stones[1]
         
-        if (difference === 0) {
-            stones.shift()
-            stones.shift()
-        }else {
-            stones.shift()
-            stones[0] = difference
-        }
+//         if (difference === 0) {
+//             stones.shift()
+//             stones.shift()
+//         }else {
+//             stones.shift()
+//             stones[0] = difference
+//         }
+//     }
+//     return stones.length === 0 ? 0 : stones[0]
+// }
+
+
+// Contiguous Array
+// Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
+
+// Example 1: 
+// Input: [0,1]
+// Output: 2
+// Explanation: [0, 1] is the longest contiguous subarray with equal number of 0 and 1.
+
+
+// Idea: Iterate the numbers and count the number of 0s and 1s
+// Save the first appearance of count in a hash map as hash = {count:index}
+// When the same count appears again at i, it means between hash[count] to i, the number of 0s and 1s evened out and it's back to its previous level.
+
+const findMaxLength = function(nums) {
+    let hash = {0: -1}
+    let count = 0
+    let max = 0
+    
+    for (let  i=0; i< nums.length; i++) {
+        if  (nums[i] == 0 ) count --
+        else count ++
+        
+        if(hash[count] !=null) max = Math.max(max, i - hash[count])
+        else hash[count] = i
     }
-    return stones.length === 0 ? 0 : stones[0]
+    
+    return max
 }
