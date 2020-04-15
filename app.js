@@ -626,3 +626,33 @@ const findMaxLength = function(nums) {
     
     return max
 }
+
+var stringShift = function(s, shift) {
+    let totalAmount = 0
+    let isNegative = false
+    
+    shift.forEach(function(subArr) {
+        totalAmount += subArr[0] == 0 ? -(subArr[1]) : subArr[1]
+    })
+    
+    if (totalAmount  === 0) {return s }
+    
+    let firstHalf = ''
+    let secondHalf = ''
+    
+    if (totalAmount < 0) {
+        isNegative = true
+        totalAmount *= -1
+    }
+    
+    totalAmount = totalAmount % s.length
+    if(isNegative) {
+        firstHalf = s.slice(totalAmount)
+        secondHalf = s.slice(0, totalAmount)
+    }else {
+        firstHalf = s.slice(s.length - totalAmount)
+        secondHalf = s.slice(0, s.length - totalAmount)
+    }
+    
+    return firstHalf + secondHalf
+};
