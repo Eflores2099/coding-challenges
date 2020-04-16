@@ -611,48 +611,92 @@
 // Save the first appearance of count in a hash map as hash = {count:index}
 // When the same count appears again at i, it means between hash[count] to i, the number of 0s and 1s evened out and it's back to its previous level.
 
-const findMaxLength = function(nums) {
-    let hash = {0: -1}
-    let count = 0
-    let max = 0
+// const findMaxLength = function(nums) {
+//     let hash = {0: -1}
+//     let count = 0
+//     let max = 0
     
-    for (let  i=0; i< nums.length; i++) {
-        if  (nums[i] == 0 ) count --
-        else count ++
+//     for (let  i=0; i< nums.length; i++) {
+//         if  (nums[i] == 0 ) count --
+//         else count ++
         
-        if(hash[count] !=null) max = Math.max(max, i - hash[count])
-        else hash[count] = i
-    }
+//         if(hash[count] !=null) max = Math.max(max, i - hash[count])
+//         else hash[count] = i
+//     }
     
-    return max
-}
+//     return max
+// }
 
-var stringShift = function(s, shift) {
-    let totalAmount = 0
-    let isNegative = false
+
+//Perform String Shifts
+
+// You are given a string s containing lowercase English letters, and a matrix shift, where shift[i] = [direction, amount]:
+
+// direction can be 0 (for left shift) or 1 (for right shift). 
+// amount is the amount by which string s is to be shifted.
+// A left shift by 1 means remove the first character of s and append it to the end.
+// Similarly, a right shift by 1 means remove the last character of s and add it to the beginning.
+// Return the final string after all operations.
+
+// var stringShift = function(s, shift) {
+//     let totalAmount = 0
+//     let isNegative = false
     
-    shift.forEach(function(subArr) {
-        totalAmount += subArr[0] == 0 ? -(subArr[1]) : subArr[1]
-    })
+//     shift.forEach(function(subArr) {
+//         totalAmount += subArr[0] == 0 ? -(subArr[1]) : subArr[1]
+//     })
     
-    if (totalAmount  === 0) {return s }
+//     if (totalAmount  === 0) {return s }
     
-    let firstHalf = ''
-    let secondHalf = ''
+//     let firstHalf = ''
+//     let secondHalf = ''
     
-    if (totalAmount < 0) {
-        isNegative = true
-        totalAmount *= -1
+//     if (totalAmount < 0) {
+//         isNegative = true
+//         totalAmount *= -1
+//     }
+    
+//     totalAmount = totalAmount % s.length
+//     if(isNegative) {
+//         firstHalf = s.slice(totalAmount)
+//         secondHalf = s.slice(0, totalAmount)
+//     }else {
+//         firstHalf = s.slice(s.length - totalAmount)
+//         secondHalf = s.slice(0, s.length - totalAmount)
+//     }
+    
+//     return firstHalf + secondHalf
+// };
+
+
+//Product of Array Except Self
+
+// Given an array nums of n integers where n > 1,  return an array output such that output[i] 
+// is equal to the product of all the elements of nums except nums[i]
+
+// example: 
+// Input:  [1,2,3,4]
+// Output: [24,12,8,6]
+
+// Constraint: It's guaranteed that the product of the elements of any prefix or suffix of the array (including the whole array) fits in a 32 bit integer.
+
+// Note: Please solve it without division and in O(n).
+
+// Follow up:
+// Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
+
+const productExceptSelf = function(nums) {
+    let output = []  //empty array for holding products
+    
+    for(let i = 0, acc = 1; i < nums.length; i += 1) {
+        output[i] = acc         //current elements is equal to accumulator of products to left of it
+        acc *= nums[i]          // accumulator now includes updated product with self multiplied in
     }
     
-    totalAmount = totalAmount % s.length
-    if(isNegative) {
-        firstHalf = s.slice(totalAmount)
-        secondHalf = s.slice(0, totalAmount)
-    }else {
-        firstHalf = s.slice(s.length - totalAmount)
-        secondHalf = s.slice(0, s.length - totalAmount)
+    for (let i = nums.length -1, acc = 1; i >= 0; i -= 1) {
+        output[i] *= acc        //current element is equal to accumulator of products to right of it
+        acc *= nums[i]          // accumulator now includes updated product with self included
     }
     
-    return firstHalf + secondHalf
+    return output
 };
