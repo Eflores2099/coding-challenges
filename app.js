@@ -685,18 +685,57 @@
 // Follow up:
 // Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
 
-const productExceptSelf = function(nums) {
-    let output = []  //empty array for holding products
+// const productExceptSelf = function(nums) {
+//     let output = []  //empty array for holding products
     
-    for(let i = 0, acc = 1; i < nums.length; i += 1) {
-        output[i] = acc         //current elements is equal to accumulator of products to left of it
-        acc *= nums[i]          // accumulator now includes updated product with self multiplied in
+//     for(let i = 0, acc = 1; i < nums.length; i += 1) {
+//         output[i] = acc         //current elements is equal to accumulator of products to left of it
+//         acc *= nums[i]          // accumulator now includes updated product with self multiplied in
+//     }
+    
+//     for (let i = nums.length -1, acc = 1; i >= 0; i -= 1) {
+//         output[i] *= acc        //current element is equal to accumulator of products to right of it
+//         acc *= nums[i]          // accumulator now includes updated product with self included
+//     }
+    
+//     return output
+// };
+
+//Valid Parenthesis String
+
+// Given a string containing only three types of characters: '(', ')' and '*', write a function to check whether this string is valid. We define the validity of a string by these rules:
+
+// Any left parenthesis '(' must have a corresponding right parenthesis ')'.
+// Any right parenthesis ')' must have a corresponding left parenthesis '('.
+// Left parenthesis '(' must go before the corresponding right parenthesis ')'.
+// '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string.
+// An empty string is also valid.
+
+const checkValidString = function(s) {
+    let lefts = []
+    let freebies = []
+    
+    for (let i=0; i < s.length; i +=1) {
+      if(s[i] === '(') {
+          lefts.push(i)
+      }  else if (s[i] === '*') {
+          freebies.push(i)
+      }else {
+          if (lefts.length === 0 && freebies.length === 0){
+              return false
+          }else if (lefts.length > 0) {
+              lefts.pop()
+          }else if (freebies.length > 0) {
+              freebies.pop()
+          }
+      }
     }
     
-    for (let i = nums.length -1, acc = 1; i >= 0; i -= 1) {
-        output[i] *= acc        //current element is equal to accumulator of products to right of it
-        acc *= nums[i]          // accumulator now includes updated product with self included
+    while (lefts.length > 0 && freebies.length > 0) {
+        if (lefts.pop() >  freebies.pop()) {
+            return false
+        }
     }
     
-    return output
-};
+    return lefts.length === 0
+}
