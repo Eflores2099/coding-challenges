@@ -711,31 +711,85 @@
 // '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string.
 // An empty string is also valid.
 
-const checkValidString = function(s) {
-    let lefts = []
-    let freebies = []
+// const checkValidString = function(s) {
+//     let lefts = []
+//     let freebies = []
     
-    for (let i=0; i < s.length; i +=1) {
-      if(s[i] === '(') {
-          lefts.push(i)
-      }  else if (s[i] === '*') {
-          freebies.push(i)
-      }else {
-          if (lefts.length === 0 && freebies.length === 0){
-              return false
-          }else if (lefts.length > 0) {
-              lefts.pop()
-          }else if (freebies.length > 0) {
-              freebies.pop()
-          }
-      }
-    }
+//     for (let i=0; i < s.length; i +=1) {
+//       if(s[i] === '(') {
+//           lefts.push(i)
+//       }  else if (s[i] === '*') {
+//           freebies.push(i)
+//       }else {
+//           if (lefts.length === 0 && freebies.length === 0){
+//               return false
+//           }else if (lefts.length > 0) {
+//               lefts.pop()
+//           }else if (freebies.length > 0) {
+//               freebies.pop()
+//           }
+//       }
+//     }
     
-    while (lefts.length > 0 && freebies.length > 0) {
-        if (lefts.pop() >  freebies.pop()) {
-            return false
+//     while (lefts.length > 0 && freebies.length > 0) {
+//         if (lefts.pop() >  freebies.pop()) {
+//             return false
+//         }
+//     }
+    
+//     return lefts.length === 0
+// }
+
+//number of Islands
+// Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. 
+// An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. 
+// You may assume all four edges of the grid are all surrounded by water.
+
+// Example: Input:
+// 11110
+// 11010
+// 11000
+// 00000
+
+// Output: 1
+
+// Input:
+// 11000
+// 11000
+// 00100
+// 00011
+
+// Output: 3
+
+var numIslands = function(grid) {
+    let islandCount = 0 //number of islands in grid
+    
+    for(let row = 0; row < grid.length; row += 1) {
+        for(let col = 0; col < grid[row].length; col += 1) {
+            if (grid[row][col] === '1') { //current spot is LAND
+                islandCount += 1            //number of islands is 1 greater
+                dfs(row, col, grid)         //mark all adjacent spots and current spot with '0'
+            }
         }
     }
+    return islandCount
+};
+
+const dfs =function(row, col, grid) {
+    if (isWater(row, col, grid)) {
+        return 0                //return if water (stop looking for adjancet land)
+    }
     
-    return lefts.length === 0
+    grid[row][col] ='0'     //mark this spot as water
+    
+    dfs(row +1, col, grid)  //search to right
+    dfs(row -1, col, grid)  // search to left
+    dfs(row, col + 1, grid) // search to bottom
+    dfs(row, col -1, grid) // search to top
+    
+    return 0
+}
+
+const isWater = function(row, col, grid) {
+    return grid[row] === undefined || grid[row][col] === undefined || grid[row][col] === '0'
 }
