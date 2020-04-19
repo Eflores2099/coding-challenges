@@ -761,35 +761,71 @@
 
 // Output: 3
 
-var numIslands = function(grid) {
-    let islandCount = 0 //number of islands in grid
+// var numIslands = function(grid) {
+//     let islandCount = 0 //number of islands in grid
     
-    for(let row = 0; row < grid.length; row += 1) {
-        for(let col = 0; col < grid[row].length; col += 1) {
-            if (grid[row][col] === '1') { //current spot is LAND
-                islandCount += 1            //number of islands is 1 greater
-                dfs(row, col, grid)         //mark all adjacent spots and current spot with '0'
+//     for(let row = 0; row < grid.length; row += 1) {
+//         for(let col = 0; col < grid[row].length; col += 1) {
+//             if (grid[row][col] === '1') { //current spot is LAND
+//                 islandCount += 1            //number of islands is 1 greater
+//                 dfs(row, col, grid)         //mark all adjacent spots and current spot with '0'
+//             }
+//         }
+//     }
+//     return islandCount
+// };
+
+// const dfs =function(row, col, grid) {
+//     if (isWater(row, col, grid)) {
+//         return 0                //return if water (stop looking for adjancet land)
+//     }
+    
+//     grid[row][col] ='0'     //mark this spot as water
+    
+//     dfs(row +1, col, grid)  //search to right
+//     dfs(row -1, col, grid)  // search to left
+//     dfs(row, col + 1, grid) // search to bottom
+//     dfs(row, col -1, grid) // search to top
+    
+//     return 0
+// }
+
+// const isWater = function(row, col, grid) {
+//     return grid[row] === undefined || grid[row][col] === undefined || grid[row][col] === '0'
+// }
+
+// Minimum Path Sum
+
+// Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+// Note: You can only move either down or right at any point in time.
+
+// example: 
+// Input:
+// [
+//   [1,3,1],
+//   [1,5,1],
+//   [4,2,1]
+// ]
+// Output: 7
+// Explanation: Because the path 1→3→1→1→1 minimizes the sum.
+
+const miniPathSum = function(grid) {
+    let newGrid = []
+    for (let i=0; i < grid.length; i+= 1) {
+        newGrid.push([])
+        
+        for (let j = 0; j< grid[i].length; j += 1) {
+            if ( i > 0 && j > 0) {
+                newGrid[i].push(Math.min(newGrid[i - 1][j], newGrid[i][j -1]) + grid[i][j])
+            }else if (i >0) {
+                newGrid[i].push(newGrid[i -1][j] + grid[i][j])
+            }else if (j > 0) {
+                newGrid[i].push(newGrid[i][j -1] + grid[i][j])
+            }else {
+                newGrid[i].push(grid[i][j])
             }
         }
     }
-    return islandCount
-};
-
-const dfs =function(row, col, grid) {
-    if (isWater(row, col, grid)) {
-        return 0                //return if water (stop looking for adjancet land)
-    }
-    
-    grid[row][col] ='0'     //mark this spot as water
-    
-    dfs(row +1, col, grid)  //search to right
-    dfs(row -1, col, grid)  // search to left
-    dfs(row, col + 1, grid) // search to bottom
-    dfs(row, col -1, grid) // search to top
-    
-    return 0
-}
-
-const isWater = function(row, col, grid) {
-    return grid[row] === undefined || grid[row][col] === undefined || grid[row][col] === '0'
+    return newGrid[grid.length - 1][grid[0].length -1]
 }
