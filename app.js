@@ -810,22 +810,69 @@
 // Output: 7
 // Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
-const miniPathSum = function(grid) {
-    let newGrid = []
-    for (let i=0; i < grid.length; i+= 1) {
-        newGrid.push([])
+// const miniPathSum = function(grid) {
+//     let newGrid = []
+//     for (let i=0; i < grid.length; i+= 1) {
+//         newGrid.push([])
         
-        for (let j = 0; j< grid[i].length; j += 1) {
-            if ( i > 0 && j > 0) {
-                newGrid[i].push(Math.min(newGrid[i - 1][j], newGrid[i][j -1]) + grid[i][j])
-            }else if (i >0) {
-                newGrid[i].push(newGrid[i -1][j] + grid[i][j])
-            }else if (j > 0) {
-                newGrid[i].push(newGrid[i][j -1] + grid[i][j])
+//         for (let j = 0; j< grid[i].length; j += 1) {
+//             if ( i > 0 && j > 0) {
+//                 newGrid[i].push(Math.min(newGrid[i - 1][j], newGrid[i][j -1]) + grid[i][j])
+//             }else if (i >0) {
+//                 newGrid[i].push(newGrid[i -1][j] + grid[i][j])
+//             }else if (j > 0) {
+//                 newGrid[i].push(newGrid[i][j -1] + grid[i][j])
+//             }else {
+//                 newGrid[i].push(grid[i][j])
+//             }
+//         }
+//     }
+//     return newGrid[grid.length - 1][grid[0].length -1]
+// }
+
+
+// Search in Rotated Sorted Array
+
+// Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+// (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
+
+// You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+// You may assume no duplicate exists in the array.
+
+// Your algorithm's runtime complexity must be in the order of O(log n).
+
+// example: Input: nums = [4,5,6,7,0,1,2], target = 0
+// Output: 4
+
+var search = function(nums, target) {
+    let bs = function(lo, hi) {
+        let mid = lo + Math.floor((hi - lo) / 2)
+        
+        if (nums[mid] === target) {
+            return mid
+        }
+        
+        if (hi -lo == 1) {
+            if (nums[lo] === target) {
+                return lo
+            }else if (nums[hi] === target) {
+                return hi
             }else {
-                newGrid[i].push(grid[i][j])
+                return -1
             }
         }
+        
+        if (lo >= hi) {
+            return -1
+        }
+        
+        let left  = bs(lo, mid -1)
+        let right = bs(mid +1, hi)
+        
+        return left !== -1 ? left : right
     }
-    return newGrid[grid.length - 1][grid[0].length -1]
-}
+    
+    return bs(0, nums.length - 1)
+};
