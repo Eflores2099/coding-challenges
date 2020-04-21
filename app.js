@@ -846,33 +846,61 @@
 // example: Input: nums = [4,5,6,7,0,1,2], target = 0
 // Output: 4
 
-var search = function(nums, target) {
-    let bs = function(lo, hi) {
-        let mid = lo + Math.floor((hi - lo) / 2)
+// var search = function(nums, target) {
+//     let bs = function(lo, hi) {
+//         let mid = lo + Math.floor((hi - lo) / 2)
         
-        if (nums[mid] === target) {
-            return mid
-        }
+//         if (nums[mid] === target) {
+//             return mid
+//         }
         
-        if (hi -lo == 1) {
-            if (nums[lo] === target) {
-                return lo
-            }else if (nums[hi] === target) {
-                return hi
-            }else {
-                return -1
-            }
-        }
+//         if (hi -lo == 1) {
+//             if (nums[lo] === target) {
+//                 return lo
+//             }else if (nums[hi] === target) {
+//                 return hi
+//             }else {
+//                 return -1
+//             }
+//         }
         
-        if (lo >= hi) {
-            return -1
-        }
+//         if (lo >= hi) {
+//             return -1
+//         }
         
-        let left  = bs(lo, mid -1)
-        let right = bs(mid +1, hi)
+//         let left  = bs(lo, mid -1)
+//         let right = bs(mid +1, hi)
         
-        return left !== -1 ? left : right
-    }
+//         return left !== -1 ? left : right
+//     }
     
-    return bs(0, nums.length - 1)
-};
+//     return bs(0, nums.length - 1)
+// };
+
+// Construct Binary Search Tree from Preorder Traversal
+
+// Return the root node of a binary search tree that matches the given preorder traversal.
+
+// (Recall that a binary search tree is a binary tree where for every node, any descendant of node.left has a value < node.val, 
+//     and any descendant of node.right has a value > node.val.  
+//     Also recall that a preorder traversal displays the value of the node first, then traverses node.left, then traverses node.right.)
+
+const bstFromPreorder = function(preorder) {
+    let po = function(node, val) {
+        if (node === null) {
+            return new TreeNode(val)
+        } 
+         if (val < node.val) {
+             node.left = po(node.left, val)
+         }else if (val > node.val) {
+             node.right = po(node.right, val)
+         }
+         return node
+     }
+     
+     let bst = null
+     preorder.forEach(function(value) {
+         bst = po(bst, value)
+     })
+     return bst
+}
