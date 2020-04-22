@@ -885,22 +885,80 @@
 //     and any descendant of node.right has a value > node.val.  
 //     Also recall that a preorder traversal displays the value of the node first, then traverses node.left, then traverses node.right.)
 
-const bstFromPreorder = function(preorder) {
-    let po = function(node, val) {
-        if (node === null) {
-            return new TreeNode(val)
-        } 
-         if (val < node.val) {
-             node.left = po(node.left, val)
-         }else if (val > node.val) {
-             node.right = po(node.right, val)
-         }
-         return node
-     }
+// const bstFromPreorder = function(preorder) {
+//     let po = function(node, val) {
+//         if (node === null) {
+//             return new TreeNode(val)
+//         } 
+//          if (val < node.val) {
+//              node.left = po(node.left, val)
+//          }else if (val > node.val) {
+//              node.right = po(node.right, val)
+//          }
+//          return node
+//      }
      
-     let bst = null
-     preorder.forEach(function(value) {
-         bst = po(bst, value)
-     })
-     return bst
+//      let bst = null
+//      preorder.forEach(function(value) {
+//          bst = po(bst, value)
+//      })
+//      return bst
+// }
+
+
+// Leftmost Column with at Least a onemptied
+
+// (This problem is an interactive problem.)
+
+// A binary matrix means that all elements are 0 or 1. For each individual row of the matrix, this row is sorted in non-decreasing order.
+
+// Given a row-sorted binary matrix binaryMatrix, return leftmost column index(0-indexed) with at least a 1 in it. If such index doesn't exist, return -1.
+
+// You can't access the Binary Matrix directly.  You may only access the matrix using a BinaryMatrix interface:
+
+// BinaryMatrix.get(x, y) returns the element of the matrix at index (x, y) (0-indexed).
+// BinaryMatrix.dimensions() returns a list of 2 elements [m, n], which means the matrix is m * n.
+// Submissions making more than 1000 calls to BinaryMatrix.get will be judged Wrong Answer.  Also, any solutions that attempt to circumvent the judge will result in disqualification.
+
+// For custom testing purposes you're given the binary matrix mat as input in the following four examples. You will not have access the binary matrix directly.
+
+const leftMostColumnWithOne = function(binaryMatrix) {
+    const recurse = function(lo, hi, row) {
+        let mid = lo + Math.floor((hi - lo) / 2)
+        
+        if (binaryMatrix.get(row, mid) === 1) {
+            ans = reassignAnswer(mid)
+            recurse(lo, mid -1, row)
+            return -1
+        } 
+        if (hi - lo ===1) {
+            if (binaryMatrix.get(row, lo) === 1) {
+                ans === reassignAnswer(lo)
+            }else if (binaryMatrix.get(row, hi) === 1) {
+                ans = reassignAnswer(hi)
+            }else {
+                return -1
+            }
+        }
+        
+        if (lo >= hi) {
+            return -1
+        }
+        
+        return recurse(mid +1, hi, row)
+    }
+    
+    const reassignAnswer = function(num) {
+        return ans === undefined || ans > num ? num : ans
+    }
+    
+    let x = binaryMatrix.dimensions()[0]
+    let y = binaryMatrix.dimensions()[1]
+    let ans
+    
+    for (let i = 0; i < x; i += 1) {
+        recurse(0, y -1, i)
+    }
+    
+    return ans === undefined ? -1 : ans
 }
