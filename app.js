@@ -922,43 +922,113 @@
 
 // For custom testing purposes you're given the binary matrix mat as input in the following four examples. You will not have access the binary matrix directly.
 
-const leftMostColumnWithOne = function(binaryMatrix) {
-    const recurse = function(lo, hi, row) {
-        let mid = lo + Math.floor((hi - lo) / 2)
+// const leftMostColumnWithOne = function(binaryMatrix) {
+//     const recurse = function(lo, hi, row) {
+//         let mid = lo + Math.floor((hi - lo) / 2)
         
-        if (binaryMatrix.get(row, mid) === 1) {
-            ans = reassignAnswer(mid)
-            recurse(lo, mid -1, row)
-            return -1
-        } 
-        if (hi - lo ===1) {
-            if (binaryMatrix.get(row, lo) === 1) {
-                ans === reassignAnswer(lo)
-            }else if (binaryMatrix.get(row, hi) === 1) {
-                ans = reassignAnswer(hi)
-            }else {
-                return -1
-            }
-        }
+//         if (binaryMatrix.get(row, mid) === 1) {
+//             ans = reassignAnswer(mid)
+//             recurse(lo, mid -1, row)
+//             return -1
+//         } 
+//         if (hi - lo ===1) {
+//             if (binaryMatrix.get(row, lo) === 1) {
+//                 ans === reassignAnswer(lo)
+//             }else if (binaryMatrix.get(row, hi) === 1) {
+//                 ans = reassignAnswer(hi)
+//             }else {
+//                 return -1
+//             }
+//         }
         
-        if (lo >= hi) {
-            return -1
-        }
+//         if (lo >= hi) {
+//             return -1
+//         }
         
-        return recurse(mid +1, hi, row)
-    }
+//         return recurse(mid +1, hi, row)
+//     }
     
-    const reassignAnswer = function(num) {
-        return ans === undefined || ans > num ? num : ans
-    }
+//     const reassignAnswer = function(num) {
+//         return ans === undefined || ans > num ? num : ans
+//     }
     
-    let x = binaryMatrix.dimensions()[0]
-    let y = binaryMatrix.dimensions()[1]
-    let ans
+//     let x = binaryMatrix.dimensions()[0]
+//     let y = binaryMatrix.dimensions()[1]
+//     let ans
     
-    for (let i = 0; i < x; i += 1) {
-        recurse(0, y -1, i)
-    }
+//     for (let i = 0; i < x; i += 1) {
+//         recurse(0, y -1, i)
+//     }
     
-    return ans === undefined ? -1 : ans
-}
+//     return ans === undefined ? -1 : ans
+// }
+
+// Subarray Sum Equals K
+
+// Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.
+
+// Example: Input:nums = [1,1,1], k = 2
+// Output: 2
+
+// Note:
+// The length of the array is in range [1, 20,000].
+// The range of numbers in the array is [-1000, 1000] and the range of the integer k is [-1e7, 1e7].
+
+    // const subarraySum = function(nums, k) {
+    //     let result =0 
+    //     let sum
+        
+    //     for (let start = 0; start < nums.length; start += 1) {
+    //         sum = 0
+            
+    //         for (let end = start; end < nums.length; end += 1) {
+    //             sum += nums[end]
+                
+    //             if ( sum ===k) { result += 1}
+    //         }
+    //     }
+    //     return result
+    // };
+
+
+//     Bitwise AND of Numbers Range
+//     /given a range [m, n] where 0<= m <n
+// 2147483647, return the bitwise AND of all numbers in this range, inclusive
+
+// const rangeBitwiseAnd = function(m, n) {
+//     let count = 0
+
+//     while (n > m) {
+//         count += 1
+//         m = m >> 1
+//         n = n >>1
+//     }
+//     return m << count
+// }
+
+// LRU Cache
+
+// Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
+
+// get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+// put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+
+// The cache is initialized with a positive capacity.
+
+// Follow up:
+// Could you do both operations in O(1) time complexity?
+
+// Example:
+
+// LRUCache cache = new LRUCache( 2 /* capacity */ );
+
+// cache.put(1, 1);
+// cache.put(2, 2);
+// cache.get(1);       // returns 1
+// cache.put(3, 3);    // evicts key 2
+// cache.get(2);       // returns -1 (not found)
+// cache.put(4, 4);    // evicts key 1
+// cache.get(1);       // returns -1 (not found)
+// cache.get(3);       // returns 3
+// cache.get(4);       // returns 4
+
