@@ -1032,3 +1032,69 @@
 // cache.get(3);       // returns 3
 // cache.get(4);       // returns 4
 
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+    this.capacity = capacity;
+    this.store = {};
+    this.entries = 0;
+    this.usedOrder = [];
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+    if (this.store[key] !== undefined) {
+        for (let i = 0; i < this.usedOrder.length; i += 1) {
+            if (this.usedOrder[i] === key) {
+                this.usedOrder.splice(i, 1)
+                this.usedOrder.push(key)
+                return this.store[key]
+            }
+        }
+    } else {
+        return -1
+    }
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+    if (this.store[key] !== undefined) {
+        this.store[key] = value
+        
+        for (let i = 0; i < this.usedOrder.length; i += 1) {
+            if (this.usedOrder[i] === key) {
+                this.usedOrder.splice(i, 1)
+                this.usedOrder.push(key)
+                return;
+            }
+        }
+    }
+    
+    let first;
+    
+    if (this.entries === this.capacity) {
+        first = this.usedOrder.shift()
+        delete this.store[first]
+        this.entries -=1       
+    }
+    
+this.store[key] = value
+this.usedOrder.push(key)
+this.entries += 1
+return;
+}
+
+// /** 
+//  * Your LRUCache object will be instantiated and called as such:
+//  * var obj = new LRUCache(capacity)
+//  * var param_1 = obj.get(key)
+//  * obj.put(key,value)
+//  */
