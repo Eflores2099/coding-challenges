@@ -1120,26 +1120,74 @@
 // Explanation: You will always arrive at index 3 no matter what. Its maximum
 //              jump length is 0, which makes it impossible to reach the last index.
 
-const canJump = function(nums) {
-    let stack= []
+// const canJump = function(nums) {
+//     let stack= []
     
-    for (let i = nums.length -2; i > 0; i -= 1) {
-        if (i + nums[i] >= nums.length - 1 || i + nums[i] >= stack[stack.length - 1]) {
-            stack.push(i)
-        }
-    }
+//     for (let i = nums.length -2; i > 0; i -= 1) {
+//         if (i + nums[i] >= nums.length - 1 || i + nums[i] >= stack[stack.length - 1]) {
+//             stack.push(i)
+//         }
+//     }
     
-    let currentIndex = 0
+//     let currentIndex = 0
     
-    while (true) {
-        let sum = currentIndex + nums[currentIndex]
+//     while (true) {
+//         let sum = currentIndex + nums[currentIndex]
         
-        if (sum >= nums.length -1) {
-            return true
-        }else if (sum >= stack[stack.length -1]) {
-            currentIndex = stack.pop()
-        } else {
-            return false
+//         if (sum >= nums.length -1) {
+//             return true
+//         }else if (sum >= stack[stack.length -1]) {
+//             currentIndex = stack.pop()
+//         } else {
+//             return false
+//         }
+//     }
+// };
+
+
+// Longest Common Subsequence
+
+// Given two strings text1 and text2, return the length of their longest common subsequence.
+
+// A subsequence of a string is a new string generated from the original string with some characters(can be none) deleted without changing the relative order of the remaining characters. (eg, "ace" is a subsequence of "abcde" while "aec" is not). A common subsequence of two strings is a subsequence that is common to both strings.
+
+ 
+
+// If there is no common subsequence, return 0.
+
+// Example 1: 
+
+// Input: text1 = "abcde", text2 = "ace" 
+// Output: 3  
+// Explanation: The longest common subsequence is "ace" and its length is 3.
+
+// Example 2: 
+
+// Input: text1 = "abc", text2 = "abc"
+// Output: 3
+// Explanation: The longest common subsequence is "abc" and its length is 3.
+
+
+const longestCommonSubsequence = function(text1, text2) {
+    let matrixCreator = function(m,n) {
+        let result = []
+        
+        for(let i= 0; i < n + 1; i += 1) {
+            result.push(new Array(m + 1).fill(0))
+        }
+        return result
+    }
+    
+    let m = matrixCreator(text1.length, text2.length)
+    
+    for (let i = 0; i < text2.length; i += 1) {
+        for (let j = 0; j < text1.length; j += 1) {
+            if (text1[j] === text2[i]) {
+                m[i + 1][j + 1] = m[i][j] + 1
+            }else {
+                m[i + 1][j + 1] = Math.max(m[i + 1][j], m[i][j +1])
+            }
         }
     }
-};
+    return m[text2.length][text1.length]
+} 
