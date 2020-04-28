@@ -1191,3 +1191,45 @@ const longestCommonSubsequence = function(text1, text2) {
     }
     return m[text2.length][text1.length]
 } 
+
+
+// Maximal Square
+
+// Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+// Input: 
+
+// 1 0 1 0 0
+// 1 0 1 1 1
+// 1 1 1 1 1
+// 1 0 0 1 0
+
+// Output: 4
+
+
+var maximalSquare = function(matrix) {
+    if(!matrix || !matrix[0])
+        return 0
+    
+    let cache = [...matrix],
+        height = matrix.length,
+        width = matrix[0].length,
+        solution = Math.max(...matrix[0])
+    
+    for (let i = 0; i < matrix.length; i++) {
+        solution = Math.max(solution, matrix[i][0])
+    }
+    
+    for (let row = 1; row < height; row++) {
+        for (let col = 1; col < width; col++){
+            
+            if(matrix[row][col] === '1') {
+                cache[row][col] = Math.min(cache[row-1][col], cache[row][col -1], cache[row -1][col -1]) +1
+                solution = Math.max(cache[row][col], solution)
+            }
+        }
+    }
+    
+    return solution * solution
+    
+};
