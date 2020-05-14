@@ -1207,29 +1207,169 @@ const longestCommonSubsequence = function(text1, text2) {
 // Output: 4
 
 
-var maximalSquare = function(matrix) {
-    if(!matrix || !matrix[0])
-        return 0
+// var maximalSquare = function(matrix) {
+//     if(!matrix || !matrix[0])
+//         return 0
     
-    let cache = [...matrix],
-        height = matrix.length,
-        width = matrix[0].length,
-        solution = Math.max(...matrix[0])
+//     let cache = [...matrix],
+//         height = matrix.length,
+//         width = matrix[0].length,
+//         solution = Math.max(...matrix[0])
     
-    for (let i = 0; i < matrix.length; i++) {
-        solution = Math.max(solution, matrix[i][0])
-    }
+//     for (let i = 0; i < matrix.length; i++) {
+//         solution = Math.max(solution, matrix[i][0])
+//     }
     
-    for (let row = 1; row < height; row++) {
-        for (let col = 1; col < width; col++){
+//     for (let row = 1; row < height; row++) {
+//         for (let col = 1; col < width; col++){
             
-            if(matrix[row][col] === '1') {
-                cache[row][col] = Math.min(cache[row-1][col], cache[row][col -1], cache[row -1][col -1]) +1
-                solution = Math.max(cache[row][col], solution)
+//             if(matrix[row][col] === '1') {
+//                 cache[row][col] = Math.min(cache[row-1][col], cache[row][col -1], cache[row -1][col -1]) +1
+//                 solution = Math.max(cache[row][col], solution)
+//             }
+//         }
+//     }
+    
+//     return solution * solution
+    
+// };
+
+
+// First unique Number
+
+// You have a queue of integers, you need to retrieve the first unique integer in the queue.
+
+// Implement the FirstUnique class:
+
+// FirstUnique(int[] nums) Initializes the object with the numbers in the queue.
+// int showFirstUnique() returns the value of the first unique integer of the queue, and returns -1 if there is no such integer.
+// void add(int value) insert value to the queue.
+
+
+// example 1:
+
+// Input: 
+// ["FirstUnique","showFirstUnique","add","showFirstUnique","add","showFirstUnique","add","showFirstUnique"]
+// [[[2,3,5]],[],[5],[],[2],[],[3],[]]
+// Output: 
+// [null,2,null,2,null,3,null,-1]
+
+// Explanation: 
+// FirstUnique firstUnique = new FirstUnique([2,3,5]);
+// firstUnique.showFirstUnique(); // return 2
+// firstUnique.add(5);            // the queue is now [2,3,5,5]
+// firstUnique.showFirstUnique(); // return 2
+// firstUnique.add(2);            // the queue is now [2,3,5,5,2]
+// firstUnique.showFirstUnique(); // return 3
+// firstUnique.add(3);            // the queue is now [2,3,5,5,2,3]
+// firstUnique.showFirstUnique(); // return -1
+
+// Example 2: 
+
+// Input: 
+// ["FirstUnique","showFirstUnique","add","add","add","add","add","showFirstUnique"]
+// [[[7,7,7,7,7,7]],[],[7],[3],[3],[7],[17],[]]
+// Output: 
+// [null,-1,null,null,null,null,null,17]
+
+// Explanation: 
+// FirstUnique firstUnique = new FirstUnique([7,7,7,7,7,7]);
+// firstUnique.showFirstUnique(); // return -1
+// firstUnique.add(7);            // the queue is now [7,7,7,7,7,7,7]
+// firstUnique.add(3);            // the queue is now [7,7,7,7,7,7,7,3]
+// firstUnique.add(3);            // the queue is now [7,7,7,7,7,7,7,3,3]
+// firstUnique.add(7);            // the queue is now [7,7,7,7,7,7,7,3,3,7]
+// firstUnique.add(17);           // the queue is now [7,7,7,7,7,7,7,3,3,7,17]
+// firstUnique.showFirstUnique(); // return 17
+
+
+// var FirstUnique = function(nums) {
+//     let queue = []
+//     let counts = {}
+    
+//     nums.forEach(function(num) {
+//         if (counts[num] === undefined) {
+//             queue.push(num)
+//             counts[num] = 0
+//         }
+//         counts[num] += 1
+//     })
+    
+//     this.queue = queue
+//     this.counts = counts
+// };
+
+// /**
+//  * @return {number}
+//  */
+// FirstUnique.prototype.showFirstUnique = function() {
+//     let s = this
+    
+//     for (let i = 0; i < this.queue.length; i += 1) {
+//         if (s.counts[s.queue[i]] < 2) { return s.queue[i] }
+//     }
+//     this.queue = []
+//     return -1
+// };
+
+// /** 
+//  * @param {number} value
+//  * @return {void}
+//  */
+// FirstUnique.prototype.add = function(value) {
+//     if ( this.counts[value] === undefined) {
+//         this.queue.push(value)
+//         this.counts[value] = 0
+//     }
+//     this.counts[value] += 1
+// };
+
+// /** 
+//  * Your FirstUnique object will be instantiated and called as such:
+//  * var obj = new FirstUnique(nums)
+//  * var param_1 = obj.showFirstUnique()
+//  * obj.add(value)
+//  */
+
+
+// First Bad Version
+
+// You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+
+// Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+
+// You are given an API bool isBadVersion(version) which will return whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
+
+// Example: 
+// Given n = 5, and version = 4 is the first bad version.
+
+// call isBadVersion(3) -> false
+// call isBadVersion(5) -> true
+// call isBadVersion(4) -> true
+
+// Then 4 is the first bad version. 
+
+var solution = function(isBadVersion) {
+    /**
+     * @param {integer} n Total versions
+     * @return {integer} The first bad version
+     */
+    return function(n) {
+        let min = 1;
+        let max = n;
+        while (min < max) {
+            const pivot = min + Math.floor((max - min) / 2);
+            const leftInvalid = isBadVersion(min);
+            const rightInvalid = isBadVersion(max);
+            const pivotInvalid = isBadVersion(pivot);
+            if (!pivotInvalid && rightInvalid) {
+               min = pivot + 1;
+            } else if (pivotInvalid && !leftInvalid) {
+                max = pivot;
+            } else if (leftInvalid) {
+                return min;
             }
         }
-    }
-    
-    return solution * solution
-    
+        return min;
+    };
 };
