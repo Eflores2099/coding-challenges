@@ -1349,27 +1349,50 @@ const longestCommonSubsequence = function(text1, text2) {
 
 // Then 4 is the first bad version. 
 
-var solution = function(isBadVersion) {
-    /**
-     * @param {integer} n Total versions
-     * @return {integer} The first bad version
-     */
-    return function(n) {
-        let min = 1;
-        let max = n;
-        while (min < max) {
-            const pivot = min + Math.floor((max - min) / 2);
-            const leftInvalid = isBadVersion(min);
-            const rightInvalid = isBadVersion(max);
-            const pivotInvalid = isBadVersion(pivot);
-            if (!pivotInvalid && rightInvalid) {
-               min = pivot + 1;
-            } else if (pivotInvalid && !leftInvalid) {
-                max = pivot;
-            } else if (leftInvalid) {
-                return min;
-            }
-        }
-        return min;
-    };
+// var solution = function(isBadVersion) {
+//     /**
+//      * @param {integer} n Total versions
+//      * @return {integer} The first bad version
+//      */
+//     return function(n) {
+//         let min = 1;
+//         let max = n;
+//         while (min < max) {
+//             const pivot = min + Math.floor((max - min) / 2);
+//             const leftInvalid = isBadVersion(min);
+//             const rightInvalid = isBadVersion(max);
+//             const pivotInvalid = isBadVersion(pivot);
+//             if (!pivotInvalid && rightInvalid) {
+//                min = pivot + 1;
+//             } else if (pivotInvalid && !leftInvalid) {
+//                 max = pivot;
+//             } else if (leftInvalid) {
+//                 return min;
+//             }
+//         }
+//         return min;
+//     };
+// };
+
+
+Ransom Node
+
+Given an arbitrary ransom note string and another string containing letters from all the magazines, write a function that will return true if the ransom note can be constructed from the magazines ; otherwise, it will return false.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+example: 
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
+
+const canConstruct = function(ransomNote, magazine) {
+    
 };
+
